@@ -2,11 +2,14 @@ package com.example.ico.iotumbrella_friendly;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
@@ -20,6 +23,10 @@ import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 import android.content.ServiceConnection;
+
+import com.example.ico.alert.ShowAlertActivity;
+import com.example.ico.bluetooth.BluetoothLeService;
+import com.example.ico.bluetooth.SampleGattAttributes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -79,14 +86,23 @@ public class BluetoothDeviceControlActivity extends Activity {
     private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            // Bluetooth 커넥션 상태가 바뀐 경우
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
                 updateConnectionState(R.string.connected);
+                // TODO - 블루투스 연결이 Connection 상태로 바뀌는 경우
                 invalidateOptionsMenu();
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 mConnected = false;
                 updateConnectionState(R.string.disconnected);
+                // TODO - 블루투스 연결이 Disconnected 상태로 변한 경우
+// http://nsamteladze.blogspot.kr/2012/10/show-dialog-in-android-after-device.html
+                // 저거 해보기
+                Intent startIntent = new Intent(context, ShowAlertActivity.class);
+                startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(startIntent);
+                //////////////////// 경고 메세지 보여줌 끝
                 invalidateOptionsMenu();
                 clearUI();
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
@@ -158,6 +174,8 @@ public class BluetoothDeviceControlActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+
+
     }
 
     @Override
@@ -173,7 +191,7 @@ public class BluetoothDeviceControlActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(mGattUpdateReceiver);
+       // unregisterReceiver(mGattUpdateReceiver);
     }
 
     @Override
@@ -218,6 +236,7 @@ public class BluetoothDeviceControlActivity extends Activity {
             @Override
             public void run() {
                 mConnectionState.setText(resourceId);
+                Log.v("State check ","" + resourceId);
             }
         });
     }

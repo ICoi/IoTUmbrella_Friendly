@@ -4,11 +4,16 @@
 
     <!-- Min/target SDK versions (<uses-sdk>) managed by build.gradle -->
 
-    <!-- Declare this required feature if you want to make the app available to BLE-capable
+
+    <!--
+    Declare this required feature if you want to make the app available to BLE-capable
     devices only.  If you want to make your app available to devices that don't support BLE,
     you should omit this in the manifest.  Instead, determine BLE capability by using
-    PackageManager.hasSystemFeature(FEATURE_BLUETOOTH_LE) -->
-    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
+    PackageManager.hasSystemFeature(FEATURE_BLUETOOTH_LE)
+    -->
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
 
     <!-- [Bluetooth] 커넥션 요구, 커넥션 수락, 데이터 전송 등의 블루투스 등의 블루투스 통신을 하기 위해 필요한 권한 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -78,7 +83,16 @@
             android:label="@string/title_activity_bluetooth_device_control"
             android:theme="@android:style/Theme.Holo.Light" >
         </activity>
-        <service android:name=".BluetoothLeService" android:enabled="true"/>
+
+        <service
+            android:name="com.example.ico.bluetooth.BluetoothLeService"
+            android:enabled="true" />
+
+        <activity
+            android:name="com.example.ico.alert.ShowAlertActivity"
+            android:label="@string/title_activity_show_alert"
+            android:theme="@style/Theme.Transparent" >
+        </activity>
     </application>
 
 </manifest>

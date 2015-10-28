@@ -1,4 +1,4 @@
-package com.example.ico.iotumbrella_friendly;
+package com.example.ico.bluetooth;
 
 
 import java.util.HashMap;

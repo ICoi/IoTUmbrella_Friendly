@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.ico.iotumbrella_friendly;
+package com.example.ico.bluetooth;
 
 import android.annotation.TargetApi;
 import android.app.Service;
