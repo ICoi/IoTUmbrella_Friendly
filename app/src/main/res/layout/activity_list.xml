@@ -15,14 +15,41 @@
     <ImageButton
         android:layout_width="200px"
         android:layout_height="200px"
-        android:id="@+id/imgbtn_main_bluetooth"
-        android:background="@mipmap/a_btn_bluetooth"
-        android:layout_centerHorizontal="true"/>
-    <ImageButton
-        android:layout_width="200px"
-        android:layout_height="200px"
         android:id="@+id/imgbtn_main_map"
         android:background="@mipmap/a_btn_map"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:layout_width="200px"
+        android:layout_height="200px"
+        android:id="@+id/imgbtn_main_bluetooth"
+        android:background="@mipmap/a_btn_bluetooth"
+        android:layout_above="@id/imgbtn_main_map"
+        android:layout_marginBottom="100px"
+        android:layout_centerHorizontal="true"/>
+    <ImageButton
+        android:layout_width="200px"
+        android:layout_height="200px"
+        android:id="@+id/imgbtn_main_favori"
+        android:background="@mipmap/a_btn_favorite"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/imgbtn_main_map"
+        android:layout_marginTop="100px"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Seungcheol Lee. Daun Joung. Yeonju Hwang."
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/tvName"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="2015년 2학기 컴퓨터종합설계 Team 7(Friendly)"
+        android:layout_above="@id/tvName"
+        android:id="@+id/tvTitle" />
 </RelativeLayout>

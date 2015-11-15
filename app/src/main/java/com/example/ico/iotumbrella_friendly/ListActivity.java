@@ -41,6 +41,15 @@ public class ListActivity extends Activity {
 
             }
         });
+
+        ImageButton favoriBtn = (ImageButton)findViewById(R.id.imgbtn_main_favori);
+        favoriBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListActivity.this, FavoriteActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }

@@ -75,6 +75,7 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ListActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

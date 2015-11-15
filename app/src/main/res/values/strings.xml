@@ -27,4 +27,5 @@
     <string name="menu_scan">Scan</string>
     <string name="menu_stop">Stop</string>
     <string name="title_activity_show_alert">ShowAlertActivity</string>
+    <string name="title_activity_favorite">FavoriteActivity</string>
 </resources>
