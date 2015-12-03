@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -23,10 +24,12 @@ import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 import android.content.ServiceConnection;
+import android.widget.Toast;
 
 import com.example.ico.alert.ShowAlertActivity;
 import com.example.ico.bluetooth.BluetoothLeService;
 import com.example.ico.bluetooth.SampleGattAttributes;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -103,6 +106,15 @@ public class BluetoothDeviceControlActivity extends Activity {
                 startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(startIntent);
                 //////////////////// 경고 메세지 보여줌 끝
+
+                // TODO 마지막 끊기는 위치 지정
+                SharedPreferences setting = getSharedPreferences("setting",0);
+                SharedPreferences.Editor editor = setting.edit();
+                editor.putString("lostPlace", "hahahoootest");
+                editor.commit();
+                Toast.makeText(getApplicationContext(), setting.getString("lostPlace", "nothing"), Toast.LENGTH_SHORT).show();;//setting.getString("test");
+
+
                 invalidateOptionsMenu();
                 clearUI();
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {

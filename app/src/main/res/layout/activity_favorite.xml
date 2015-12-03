@@ -9,17 +9,33 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_favorite"
     tools:context="com.example.ico.iotumbrella_friendly.FavoriteActivity">
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/buttonmap" />
+        android:text="Registered Place : "
+        android:id="@+id/tv_favor_title"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_favor_title"
+        android:id="@+id/tv_favor_place"
+        android:text="경기도 안양시 만안구"/>
 
     <fragment
         android:id="@+id/googlemap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/tv_favor_place"
         class="com.google.android.gms.maps.MapFragment" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/googlemap"
+        android:layout_alignTop="@id/googlemap"
+        android:text="Register"
+        android:id="@+id/buttonmap" />
+
 
 
 </RelativeLayout>

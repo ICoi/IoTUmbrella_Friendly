@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -66,7 +68,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        Location currentLocation;
+        LocationManager locationManager;
+        String locationProvider;
 
         // TODO - 다음 페이지로 넘어간느 버튼!! 추후에는 자동으로 다음 페이지로 넘어가도록 수정해야함
         Button btn = (Button)findViewById(R.id.btn_startbtn);
@@ -86,7 +90,7 @@ public class MainActivity extends Activity {
 
     public void makePushAlertSetting(){
 
-        mHttpClient = new SyncHttpClient();
+        mHttpClient = new AsyncHttpClient();
         context = getApplicationContext();
         mDisplay = (EditText)findViewById(R.id.editText);
         if(checkPlayServices()){
