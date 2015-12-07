@@ -53,7 +53,7 @@ public class MainActivity extends Activity {
     private static final String PROPERTY_APP_VERSION = "appVersion";
     private static final String TAG = "ICELANCER";
 
-        private static final String URL = "http://203.128.183.153:9000/gcm/register";
+        private static final String URL = "http://www.feona.kr:9000/gcm/register";
 
     // My Sender Id - project number
     String SENDER_ID = "147568965374";
@@ -62,7 +62,6 @@ public class MainActivity extends Activity {
     Context context;
 
     String regid;
-    private EditText mDisplay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +70,7 @@ public class MainActivity extends Activity {
         Location currentLocation;
         LocationManager locationManager;
         String locationProvider;
-
+       makePushAlertSetting();
         // TODO - 다음 페이지로 넘어간느 버튼!! 추후에는 자동으로 다음 페이지로 넘어가도록 수정해야함
         Button btn = (Button)findViewById(R.id.btn_startbtn);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +91,6 @@ public class MainActivity extends Activity {
 
         mHttpClient = new AsyncHttpClient();
         context = getApplicationContext();
-        mDisplay = (EditText)findViewById(R.id.editText);
         if(checkPlayServices()){
             // 구글 플레이 서비스 확인 로직
             gcm = GoogleCloudMessaging.getInstance(this);
@@ -102,8 +100,6 @@ public class MainActivity extends Activity {
                 registerInBackground();
             }
 
-            EditText et = (EditText)findViewById(R.id.register_id_text);
-            et.setText("Regi id : " + regid);
             Log.i("REG_ID", regid);
         }else{
             Log.i(TAG, "No valid Google Play Services APK found");
@@ -139,7 +135,7 @@ public class MainActivity extends Activity {
         final SharedPreferences prefs = getGCMPreferences(context);
         String registrationId = prefs.getString(PROPERTY_REG_ID, "");
 
-
+        Log.i("REG_ID",registrationId);
 
 
         if(registrationId.isEmpty()){
@@ -205,7 +201,6 @@ public class MainActivity extends Activity {
 
             @Override
             protected void onPostExecute(String msg){
-                mDisplay.append(msg + "\n");
             }
         }.execute(null,null,null);
     }
@@ -224,30 +219,33 @@ public class MainActivity extends Activity {
     // 등록 아이디를 서드 파티 서버에 전달
     private void sendRegistrationIdToBackend() throws JSONException, UnsupportedEncodingException {
         requestParams = new RequestParams();
-        JSONObject postBodyMsg = new JSONObject();
-        postBodyMsg.put("name","Daun1233");
-        postBodyMsg.put("regId",regid.toString());
-
-        StringEntity entity = new StringEntity(postBodyMsg.toString());
-        requestParams.put("Content-Type","text/json");
         requestParams.put("regId", regid.toString());
-        Log.i("DAUN", postBodyMsg.toString());
+        AsyncHttpClient tmpHttpclient = new AsyncHttpClient();
+      //  tmpHttpclient.addHeader("Content-Type", "text/json");
+        JSONObject postObject = new JSONObject();
+        postObject.put("regId", regid.toString());
+//        StringEntity entity = new StringEntity(postBodyMsg.toString());
+        //    requestParams.put("Content-Type","text/json");
+        //    requestParams.put("regId", regid.toString());
+        Log.i("DAUN", requestParams.toString());
+        try {
+            StringEntity entity = new StringEntity(postObject.toString());
+            tmpHttpclient.post(getApplicationContext(), URL, entity, "text/json", new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                    Log.i("DAUN", "success");
 
-        mHttpClient.post(getApplicationContext(), URL, entity, "text/json", new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int i, Header[] headers, byte[] bytes) {
-                Log.i("DAUN","success");
+                }
 
-            }
+                @Override
+                public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
 
-            @Override
-            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                Log.i("DAUN","failure");
-
-            }
-        });
-
-
+                    Log.i("DAUN", "failure");
+                }
+            });
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
