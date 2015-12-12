@@ -226,13 +226,13 @@ public class ShowAlertActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(ShowAlertActivity.this, "onResume",
-                Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(ShowAlertActivity.this, "onResume",
+     //           Toast.LENGTH_SHORT).show();
 
         //ìµœì„ ì˜ providerí•˜ë‚˜ë§Œ ë¦¬í„´ë°›ëŠ”ë‹¤...
         provider = locationManager.getBestProvider(criteria, true);
-        Toast.makeText(ShowAlertActivity.this, provider + "providerê°€ ì„ íƒë˜ì—ˆìŒ.",
-                Toast.LENGTH_SHORT).show();
+        //Toast.makeText(ShowAlertActivity.this, provider + "providerê°€ ì„ íƒë˜ì—ˆìŒ.",
+         //       Toast.LENGTH_SHORT).show();
 
 
         //  ìµœì†Œ 1ë¯¸í„° ì´ë™í•˜ê³  200ë°€ë¦¬ì„¸ì»¨ë“œ ì§€ë‚˜ë©´ ìœ„ì¹˜ ì—…ë°ì´íŠ¸..
@@ -249,8 +249,8 @@ public class ShowAlertActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        Toast.makeText(ShowAlertActivity.this, "onPause",
-                Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(ShowAlertActivity.this, "onPause",
+     //           Toast.LENGTH_SHORT).show();
 
         try {
             locationManager.removeUpdates(mylistener);
@@ -279,26 +279,26 @@ public class ShowAlertActivity extends Activity {
             editor.putString("lostLon",Double.toString(location.getLongitude()));
             editor.commit();
          //   Toast.makeText(getApplicationContext(), setting.getString("lostPlace", "nothing"), Toast.LENGTH_SHORT).show();;//setting.getString("test");
-            ShowAlertActivity.this.finish();
+         //   ShowAlertActivity.this.finish();
 
-            Toast.makeText(ShowAlertActivity.this, "Lat : " + location.getLatitude() +" Lon : " + location.getLongitude() ,
-                    Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(ShowAlertActivity.this, "Lat : " + location.getLatitude() +" Lon : " + location.getLongitude() ,
+           //         Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
             switch (status) {
                 case LocationProvider.AVAILABLE:
-                    Toast.makeText(ShowAlertActivity.this, provider + " state visible",
-                            Toast.LENGTH_SHORT).show();
+              //      Toast.makeText(ShowAlertActivity.this, provider + " state visible",
+               //             Toast.LENGTH_SHORT).show();
                     break;
                 case LocationProvider.OUT_OF_SERVICE:
-                    Toast.makeText(ShowAlertActivity.this, provider + " out of service",
-                            Toast.LENGTH_SHORT).show();
+               //     Toast.makeText(ShowAlertActivity.this, provider + " out of service",
+               //             Toast.LENGTH_SHORT).show();
                     break;
                 case LocationProvider.TEMPORARILY_UNAVAILABLE:
-                    Toast.makeText(ShowAlertActivity.this, provider + " service stop",
-                            Toast.LENGTH_SHORT).show();
+               //     Toast.makeText(ShowAlertActivity.this, provider + " service stop",
+               //             Toast.LENGTH_SHORT).show();
                     break;
             }
 
@@ -306,15 +306,15 @@ public class ShowAlertActivity extends Activity {
 
         @Override
         public void onProviderEnabled(String provider) {
-            Toast.makeText(ShowAlertActivity.this, "Provider " + provider + " enabled!",
-                    Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(ShowAlertActivity.this, "Provider " + provider + " enabled!",
+        //            Toast.LENGTH_SHORT).show();
 
         }
 
         @Override
         public void onProviderDisabled(String provider) {
-            Toast.makeText(ShowAlertActivity.this, "Provider " + provider + " disabled!",
-                    Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(ShowAlertActivity.this, "Provider " + provider + " disabled!",
+          //          Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivity(intent);
         }

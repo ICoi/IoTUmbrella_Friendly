@@ -108,11 +108,7 @@ public class BluetoothDeviceControlActivity extends Activity {
                 //////////////////// 경고 메세지 보여줌 끝
 
                 // TODO 마지막 끊기는 위치 지정
-                SharedPreferences setting = getSharedPreferences("setting",0);
-                SharedPreferences.Editor editor = setting.edit();
-                editor.putString("lostPlace", "hahahoootest");
-                editor.commit();
-                Toast.makeText(getApplicationContext(), setting.getString("lostPlace", "nothing"), Toast.LENGTH_SHORT).show();;//setting.getString("test");
+               // Toast.makeText(getApplicationContext(), setting.getString("lostPlace", "nothing"), Toast.LENGTH_SHORT).show();;//setting.getString("test");
 
 
                 invalidateOptionsMenu();
